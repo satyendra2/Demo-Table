@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <title>Demo</title>
+	 <meta charset="utf-8">
+	 <meta name="viewport" content="width=device-width initial-scale=1.0">
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+   <style>
+     table,tr,td,th{
+	      text-align:center;
+	 }  
+   </style>
+</head>
+<body>
+     <div ng-app="app" ng-controller="mainController">
+	   <div class="container-fluid">
+	     <table class="table table-striped table-bordered">
+		     <thead>
+			     <tr>
+				     <th>First Nmae</th>
+				     <th>Last Name</th>
+				     <th>Age</th>
+				     <th>Action</th>
+			     <tr>
+		     <thead>
+			 <tbody>
+			     <tr ng-repeat="item in items">
+				     <td>{{item.firstName}}</td>
+				     <td>{{item.lastName}}</td>
+				     <td>{{item.age}}</td>
+				     <td><div class="btn-group">
+					     <input type="button" ng-click="edit($index)" value="edit"/>
+					     <input type="button" ng-click="delete($index)" value="delete"/>
+					 </div>
+					 </td>
+			     <tr>
+		     <tbody>
+	     <table>
+		 <form class="form-horizontal">
+		     <div class="form-group">
+		      <label  for="fname">firstName</label>
+			     <input class="form-control" type="text" ng-model="itemObject.firstName" required/>
+			 </div>	
+             <div class="form-group">			 
+			  <label for="lname">lastName</label>
+			     <input class="form-control" type="text" ng-model="itemObject.lastName" required/>
+			 </div>
+			 <div class="form-group">	 
+              <label for="age">age</label>
+			     <input class="form-control" type="text" ng-model="itemObject.age" required/>
+			 </div>	 
+             <input type="button" ng-click="addRow()" value="addRow"/> 				 
+		 
+		 </form>
+	   </div>	 
+	 </div> 
+     <script>
+	     angular.module("app",[])
+		  .controller("mainController",function($scope){
+		       $scope.ObjectIndex = '';
+		        $scope.items = [
+				{"firstName":"john","lastName":"doe","age":"25"},
+				{"firstName":"john","lastName":"doe","age":"25"},
+				{"firstName":"john","lastName":"doe","age":"25"}
+				];
+			$scope.ObjectIndex = '';	
+			$scope.edit = function(id){
+			  $scope.ObjectIndex = id;
+			  $scope.itemObject=angular.copy($scope.items[id])
+			}
+			$scope.addRow = function(){
+			console.log($scope.ObjectIndex);
+			  if($scope.items[$scope.ObjectIndex] == null){
+			     $scope.items.push ($scope.itemObject);
+				 $scope.update = angular.copy.itemObject;
+			  }else{
+			  $scope.items[$scope.ObjectIndex] = $scope.itemObject;
+			  }
+			$scope.ObjectIndex = ''; 
+			 $scope.itemObject = {};
+			}	
+			$scope.delete = function(index){
+			  $scope.items.splice(index,1)
+			}
+		  });
+	 </script>	 
+</body>
+</html>
